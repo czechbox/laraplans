@@ -123,4 +123,25 @@ class SubscriptionAbility
 
         return $default;
     }
+    
+    /**
+     * Add feature default value
+     *
+     * @param  string $feature
+     * @param  int $addValue
+     * @param  mixed $default
+     * @return mixed
+     */
+    public function addValue($feature, $addValue, $default = null)
+    {
+        foreach ($this->subscription->plan->features as $key => $value) {
+            if ($feature === $value->code) {
+                $value->value += $addValue;
+                $value->save();
+                return $value->value;
+            }
+        }
+
+        return $default;
+    }
 }
